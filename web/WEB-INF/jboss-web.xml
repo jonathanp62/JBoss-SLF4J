@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ @(#)jboss-web.xml  0.1.0   03/13/2015
+  
+ @author    Jonathan Parker
+ @version   0.1.0
+ @since     0.1.0
+-->
+<jboss-web>
+  <context-root>/jboss-slf4j</context-root>
+</jboss-web>
