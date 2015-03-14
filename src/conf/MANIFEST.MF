@@ -1,10 +1,10 @@
 Manifest-Version: 1.0
 
 Name: net/jonathan/jboss/slf4j
-Dependencies: org.slf4j.ext
+Dependencies: org.slf4j, org.slf4j.ext
 Build-By: Jonathan Parker
 Build-Date: 03142015
-Build-Time: 083710
+Build-Time: 093713
 Build-ID: 0.1.6-05
 Build-JDK: 1.6.0_65
 Created-By: Apache Maven 3.2.3
