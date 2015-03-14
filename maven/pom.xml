@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
+ @(#)pom.xml  0.1.1   03/14/2015
  @(#)pom.xml  0.1.0   03/13/2015
  
  @author    Jonathan Parker
- @version   0.1.0
+ @version   0.1.1
  @since     0.1.0
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0"
@@ -17,7 +18,7 @@
   <groupId>net.jonathan.jboss.slf4j</groupId>
   <artifactId>jboss-slf4j</artifactId>
   <packaging>war</packaging>
-  <version>0.1.0</version>
+  <version>0.1.1</version>
   <name>JBoss SLF4J</name>
   <developers>
     <developer>
@@ -109,7 +110,7 @@
             <artifactItem>
               <groupId>net.jonathan.jboss.slf4j</groupId>
               <artifactId>jboss-slf4j</artifactId>
-              <version>0.1.0</version>
+              <version>0.1.1</version>
               <type>war</type>
               <overWrite>true</overWrite>
               <outputDirectory>${application.deploy.lib}</outputDirectory>
@@ -125,6 +126,12 @@
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
       <version>1.7.7</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-ext</artifactId>
+      <version>1.7.10</version>
       <scope>provided</scope>
     </dependency>
     <dependency>

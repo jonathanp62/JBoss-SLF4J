@@ -1,6 +1,7 @@
 package net.jonathan.jboss.slf4j;
 
 /*
+ * @(#)TestServlet.java 0.1.1   03/14/2015
  * @(#)TestServlet.java 0.1.0   03/13/2015
  */
 
@@ -24,7 +25,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.LoggerFactory;
 
-import org.slf4j.Logger;
+import org.slf4j.ext.XLogger;
 
 /**
  * A trivial servlet class that
@@ -34,7 +35,7 @@ import org.slf4j.Logger;
  * Creation date: 3/13/15 10:10 AM
  *
  * @author	Jonathan Parker
- * @version     0.1.0
+ * @version     0.1.1
  * @since	0.1.0
  */
 @WebServlet(name = "Test Servlet", urlPatterns = {"/test.do"})
@@ -44,7 +45,7 @@ public class TestServlet extends HttpServlet {
     private String loggerName;
 
     /** The logger. */
-    private Logger logger;
+    private XLogger logger;
 
     /**
      * The default constructor.
@@ -58,7 +59,7 @@ public class TestServlet extends HttpServlet {
      */
     @PostConstruct
     public void postConstruct() {
-        this.logger = LoggerFactory.getLogger(this.loggerName);
+        this.logger = new XLogger(LoggerFactory.getLogger(this.loggerName));
     }
 
     /**
@@ -90,7 +91,9 @@ public class TestServlet extends HttpServlet {
      * @throws              javax.servlet.ServletException
      * @throws              java.io.IOException
      */
-    protected void processRequest(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {        
+    protected void processRequest(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
+        this.logger.entry(request, response);
+        
         /* Load the resource bundle for user/presentation messages using the locale from the user request */
         
         ResourceBundle userMessages = ResourceBundle.getBundle("messages", request.getLocale(), Thread.currentThread().getContextClassLoader());
@@ -99,6 +102,8 @@ public class TestServlet extends HttpServlet {
         
         response.setContentType("text/html;charset=UTF-8");
         response.setStatus(200);
+        
+        this.logger.info("Set the content type and status in the response");
         
         PrintWriter out = response.getWriter();
         
@@ -119,7 +124,9 @@ public class TestServlet extends HttpServlet {
         
         this.logger.info("Sent output to the response");
         
-        userMessages = null;        
+        userMessages = null;
+        
+        this.logger.exit();
     }
 
     /**
@@ -133,7 +140,9 @@ public class TestServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        this.logger.entry(request, response);
         processRequest(request, response);
+        this.logger.exit();
     }
 
     /**
@@ -147,7 +156,9 @@ public class TestServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        this.logger.entry(request, response);
         processRequest(request, response);
+        this.logger.exit();
     }
 
     /**

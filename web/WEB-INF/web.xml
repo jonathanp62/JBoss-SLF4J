@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
+ @(#)web.xml    0.1.1   03/14/2015
  @(#)web.xml    0.1.0   03/13/2015
   
  @author    Jonathan Parker
- @version   0.1.0
+ @version   0.1.1
  @since     0.1.0
 -->
 <web-app xmlns="http://java.sun.com/xml/ns/javaee"
 	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	 xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 	 version="3.0">
-    <description>JBoss SLF4J - Fri Mar 13 16:43:35 EDT 2015 (Build 03132015164335) - 0.1.0</description>
+    <description>JBoss SLF4J - Sat Mar 14 07:04:43 EDT 2015 (Build 03142015070443) - 0.1.1</description>
     <display-name>JBoss SLF4J</display-name>
     <servlet>
         <servlet-name>Test Servlet</servlet-name>

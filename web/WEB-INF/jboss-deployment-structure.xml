@@ -8,8 +8,8 @@
 -->
 <jboss-deployment-structure>
     <deployment>
-        <exclude-subsystems>
-            <subsystem name="logging"/>
-        </exclude-subsystems>
+        <dependencies>
+            <module name="org.slf4j.ext"/>
+        </dependencies>
     </deployment>
 </jboss-deployment-structure>
