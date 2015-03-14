@@ -93,17 +93,23 @@ public class TestServlet extends HttpServlet {
      */
     protected void processRequest(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
         this.logger.entry(request, response);
+
+        /* Load the resource bundle for server messages using the locale from the default locale */
         
+        ResourceBundle serverMessages = ResourceBundle.getBundle("messages", Locale.getDefault(), Thread.currentThread().getContextClassLoader());
+
+        this.logger.info("{}", serverMessages.getString("class.testservlet.loaded.server"));
+
         /* Load the resource bundle for user/presentation messages using the locale from the user request */
         
         ResourceBundle userMessages = ResourceBundle.getBundle("messages", request.getLocale(), Thread.currentThread().getContextClassLoader());
 
-        this.logger.info("Loaded the resource bundle");
-        
+        this.logger.info("{}", serverMessages.getString("class.testservlet.loaded.user"));
+
         response.setContentType("text/html;charset=UTF-8");
         response.setStatus(200);
         
-        this.logger.info("Set the content type and status in the response");
+        this.logger.info("{}", serverMessages.getString("class.testservlet.response.set"));
         
         PrintWriter out = response.getWriter();
         
@@ -122,8 +128,9 @@ public class TestServlet extends HttpServlet {
             out.close();
         }
         
-        this.logger.info("Sent output to the response");
+        this.logger.info("{}", serverMessages.getString("class.testservlet.response.sent"));
         
+        serverMessages = null;
         userMessages = null;
         
         this.logger.exit();
