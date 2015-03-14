@@ -171,14 +171,10 @@ public class TestServlet extends HttpServlet {
     /**
      * Returns a short description of the servlet.
      *
-     * @return  java.lang.String    The servlet description
+     * @return  java.lang.String
      */
     @Override
     public String getServletInfo() {
-        /* Use the resource bundle for server/logging messages based on the server locale */
-
-        ResourceBundle resourceBundle = ResourceBundle.getBundle("messages", Locale.getDefault(), Thread.currentThread().getContextClassLoader());
-
-        return resourceBundle.getString("class.testservlet.info");
+        return ResourceBundle.getBundle("messages", Locale.getDefault(), Thread.currentThread().getContextClassLoader()).getString("class.testservlet.info");
     }    
 }
