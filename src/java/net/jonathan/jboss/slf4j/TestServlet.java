@@ -1,6 +1,7 @@
 package net.jonathan.jboss.slf4j;
 
 /*
+ * @(#)TestServlet.java 0.1.2   03/15/2015
  * @(#)TestServlet.java 0.1.1   03/14/2015
  * @(#)TestServlet.java 0.1.0   03/13/2015
  */
@@ -10,6 +11,7 @@ import java.io.PrintWriter;
 
 import java.util.Locale;
 import java.util.ResourceBundle;
+import java.util.UUID;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -24,6 +26,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.LoggerFactory;
+import org.slf4j.MDC;
 
 import org.slf4j.ext.XLogger;
 
@@ -35,7 +38,7 @@ import org.slf4j.ext.XLogger;
  * Creation date: 3/13/15 10:10 AM
  *
  * @author	Jonathan Parker
- * @version     0.1.1
+ * @version     0.1.2
  * @since	0.1.0
  */
 @WebServlet(name = "Test Servlet", urlPatterns = {"/test.do"})
@@ -148,7 +151,9 @@ public class TestServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         this.logger.entry(request, response);
+        MDC.put("requestId", UUID.randomUUID().toString().replaceAll("-", ""));
         processRequest(request, response);
+        MDC.clear();
         this.logger.exit();
     }
 
@@ -164,7 +169,9 @@ public class TestServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         this.logger.entry(request, response);
+        MDC.put("requestId", UUID.randomUUID().toString().replaceAll("-", ""));
         processRequest(request, response);
+        MDC.clear();
         this.logger.exit();
     }
 
