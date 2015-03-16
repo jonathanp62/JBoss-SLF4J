@@ -48,7 +48,7 @@ public class TestServlet extends HttpServlet {
     @Resource(mappedName = "java:comp/env/logger/name")
     private String loggerName;
 
-    /** A SLF4J extended logger that allows for markers. */
+    /** A custom SLF4J extended logger that allows for markers. */
     private MXLogger logger;
 
     /** A marker. */
@@ -107,18 +107,21 @@ public class TestServlet extends HttpServlet {
         
         ResourceBundle serverMessages = ResourceBundle.getBundle("messages", Locale.getDefault(), Thread.currentThread().getContextClassLoader());
 
-        this.logger.info(this.marker, "{}", serverMessages.getString("class.testservlet.loaded.server"));
+        if (this.logger.isInfoEnabled())
+            this.logger.info(this.marker, "{}", serverMessages.getString("class.testservlet.loaded.server"));
 
         /* Load the resource bundle for user/presentation messages using the locale from the user request */
         
         ResourceBundle userMessages = ResourceBundle.getBundle("messages", request.getLocale(), Thread.currentThread().getContextClassLoader());
 
-        this.logger.info(this.marker, "{}", serverMessages.getString("class.testservlet.loaded.user"));
+        if (this.logger.isInfoEnabled())
+            this.logger.info(this.marker, "{}", serverMessages.getString("class.testservlet.loaded.user"));
 
         response.setContentType("text/html;charset=UTF-8");
         response.setStatus(200);
         
-        this.logger.info("{}", serverMessages.getString("class.testservlet.response.set"));
+        if (this.logger.isInfoEnabled())
+            this.logger.info("{}", serverMessages.getString("class.testservlet.response.set"));
         
         PrintWriter out = response.getWriter();
         
@@ -137,7 +140,8 @@ public class TestServlet extends HttpServlet {
             out.close();
         }
         
-        this.logger.info("{}", serverMessages.getString("class.testservlet.response.sent"));
+        if (this.logger.isInfoEnabled())
+            this.logger.info("{}", serverMessages.getString("class.testservlet.response.sent"));
         
         serverMessages = null;
         userMessages = null;

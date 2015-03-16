@@ -13,6 +13,10 @@ import org.slf4j.ext.XLogger;
  * An extension of the SLF4J extended
  * logger that appends a marker to
  * the end of the message.
+ * Created to compensate for the 
+ * apparent lack of support for
+ * markers in the built-in JBoss
+ * logging.
  * Creation date: 3/16/15 11:03 AM
  *
  * @author	Jonathan Parker
@@ -69,7 +73,7 @@ final class MXLogger extends XLogger {
     /**
      * Write a debug message.
      * 
-     * @param   marke       org.slf4j.Marker
+     * @param   marker      org.slf4j.Marker
      * @param   format      java.lang.String
      * @param   argArray    java.lang.Object[]
      * @todo                Implement the marker
@@ -77,6 +81,18 @@ final class MXLogger extends XLogger {
     @Override
     public void debug(final Marker marker, final String format, final Object... argArray) {        
         super.debug(format, argArray);
+    }
+
+    /**
+     * Write a debug message.
+     * 
+     * @param   marker  org.slf4j.Marker
+     * @param   message java.lang.String
+     * @param   t       java.lang.Throwable
+     */
+    @Override
+    public void debug(final Marker marker, final String message, final Throwable t) {
+        super.debug(message.concat(" [").concat(marker.getName()).concat("]"), t);
     }
 
     /**
@@ -118,7 +134,7 @@ final class MXLogger extends XLogger {
     /**
      * Write an error message.
      * 
-     * @param   marke       org.slf4j.Marker
+     * @param   marker      org.slf4j.Marker
      * @param   format      java.lang.String
      * @param   argArray    java.lang.Object[]
      * @todo                Implement the marker
@@ -126,6 +142,18 @@ final class MXLogger extends XLogger {
     @Override
     public void error(final Marker marker, final String format, final Object... argArray) {        
         super.error(format, argArray);
+    }
+
+    /**
+     * Write an error message.
+     * 
+     * @param   marker  org.slf4j.Marker
+     * @param   message java.lang.String
+     * @param   t       java.lang.Throwable
+     */
+    @Override
+    public void error(final Marker marker, final String message, final Throwable t) {
+        super.error(message.concat(" [").concat(marker.getName()).concat("]"), t);
     }
 
     /**
@@ -167,7 +195,7 @@ final class MXLogger extends XLogger {
     /**
      * Write an info message.
      * 
-     * @param   marke       org.slf4j.Marker
+     * @param   marker      org.slf4j.Marker
      * @param   format      java.lang.String
      * @param   argArray    java.lang.Object[]
      * @todo                Implement the marker
@@ -175,6 +203,18 @@ final class MXLogger extends XLogger {
     @Override
     public void info(final Marker marker, final String format, final Object... argArray) {        
         super.info(format, argArray);
+    }
+
+    /**
+     * Write an info message.
+     * 
+     * @param   marker  org.slf4j.Marker
+     * @param   message java.lang.String
+     * @param   t       java.lang.Throwable
+     */
+    @Override
+    public void info(final Marker marker, final String message, final Throwable t) {
+        super.info(message.concat(" [").concat(marker.getName()).concat("]"), t);
     }
 
     /**
@@ -216,7 +256,7 @@ final class MXLogger extends XLogger {
     /**
      * Write a trace message.
      * 
-     * @param   marke       org.slf4j.Marker
+     * @param   marker      org.slf4j.Marker
      * @param   format      java.lang.String
      * @param   argArray    java.lang.Object[]
      * @todo                Implement the marker
@@ -224,6 +264,18 @@ final class MXLogger extends XLogger {
     @Override
     public void trace(final Marker marker, final String format, final Object... argArray) {        
         super.trace(format, argArray);
+    }
+
+    /**
+     * Write a trace message.
+     * 
+     * @param   marker  org.slf4j.Marker
+     * @param   message java.lang.String
+     * @param   t       java.lang.Throwable
+     */
+    @Override
+    public void trace(final Marker marker, final String message, final Throwable t) {
+        super.trace(message.concat(" [").concat(marker.getName()).concat("]"), t);
     }
 
     /**
@@ -265,7 +317,7 @@ final class MXLogger extends XLogger {
     /**
      * Write a warning message.
      * 
-     * @param   marke       org.slf4j.Marker
+     * @param   marker      org.slf4j.Marker
      * @param   format      java.lang.String
      * @param   argArray    java.lang.Object[]
      * @todo                Implement the marker
@@ -273,5 +325,17 @@ final class MXLogger extends XLogger {
     @Override
     public void warn(final Marker marker, final String format, final Object... argArray) {        
         super.warn(format, argArray);
+    }
+    
+    /**
+     * Write a warning message.
+     * 
+     * @param   marker  org.slf4j.Marker
+     * @param   message java.lang.String
+     * @param   t       java.lang.Throwable
+     */
+    @Override
+    public void warn(final Marker marker, final String message, final Throwable t) {
+        super.warn(message.concat(" [").concat(marker.getName()).concat("]"), t);
     }
 }
