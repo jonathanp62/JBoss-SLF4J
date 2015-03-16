@@ -121,7 +121,7 @@ public class TestServlet extends HttpServlet {
         response.setStatus(200);
         
         if (this.logger.isInfoEnabled())
-            this.logger.info("{}", serverMessages.getString("class.testservlet.response.set"));
+            this.logger.info("{}", serverMessages.getString("class.testservlet.response.set"));     // Not handled by MXLogger
         
         PrintWriter out = response.getWriter();
         
@@ -141,7 +141,21 @@ public class TestServlet extends HttpServlet {
         }
         
         if (this.logger.isInfoEnabled())
-            this.logger.info("{}", serverMessages.getString("class.testservlet.response.sent"));
+            this.logger.info("{}", serverMessages.getString("class.testservlet.response.sent"));    // Not handled by MXLogger
+        
+        this.logger.info(this.marker, "Plain text sample");
+        
+        String someObject = "someObject";
+        
+        this.logger.info(this.marker, "{}: {}", "This message will reveal some object", someObject);
+        
+        String anotherObject = "anotherObject";
+
+        this.logger.info(this.marker, "{}: {}, {}", "This message will reveal some object and another object", someObject, anotherObject);
+
+        Throwable t = new Throwable("Something throwable");
+        
+        this.logger.info(this.marker, "A throwable", t);
         
         serverMessages = null;
         userMessages = null;

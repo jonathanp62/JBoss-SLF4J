@@ -11,4 +11,4 @@ The format string set up in the JBoss admin console looks like this:
 
 I observed that the log level of the handler needed to be set to TRACE for tracing to work when the log level of the category was set to TRACE. Changing the log level of the category up from TRACE to INFO worked fine.
 
-Marker support is provided by a custom SLF4J extension logger that simply appends the name of the marker to the message text.
+Marker support is provided by a custom SLF4J extension logger that simply appends the name of the marker to the message text. However, there is a trade-off as the class and method names captured by the extended logger now refer to the MXLogger class and one of its methods.
