@@ -1,6 +1,7 @@
 package net.jonathan.jboss.slf4j;
 
 /*
+ * @(#)TestServlet.java 0.1.3   03/16/2015
  * @(#)TestServlet.java 0.1.2   03/15/2015
  * @(#)TestServlet.java 0.1.1   03/14/2015
  * @(#)TestServlet.java 0.1.0   03/13/2015
@@ -26,9 +27,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.LoggerFactory;
+import org.slf4j.Marker;
+import org.slf4j.MarkerFactory;
 import org.slf4j.MDC;
-
-import org.slf4j.ext.XLogger;
 
 /**
  * A trivial servlet class that
@@ -38,7 +39,7 @@ import org.slf4j.ext.XLogger;
  * Creation date: 3/13/15 10:10 AM
  *
  * @author	Jonathan Parker
- * @version     0.1.2
+ * @version     0.1.3
  * @since	0.1.0
  */
 @WebServlet(name = "Test Servlet", urlPatterns = {"/test.do"})
@@ -47,9 +48,12 @@ public class TestServlet extends HttpServlet {
     @Resource(mappedName = "java:comp/env/logger/name")
     private String loggerName;
 
-    /** The logger. */
-    private XLogger logger;
+    /** A SLF4J extended logger that allows for markers. */
+    private MXLogger logger;
 
+    /** A marker. */
+    private Marker marker;
+    
     /**
      * The default constructor.
      */
@@ -62,7 +66,8 @@ public class TestServlet extends HttpServlet {
      */
     @PostConstruct
     public void postConstruct() {
-        this.logger = new XLogger(LoggerFactory.getLogger(this.loggerName));
+        this.logger = new MXLogger(LoggerFactory.getLogger(this.loggerName));
+        this.marker = MarkerFactory.getMarker("RESOURCE");
     }
 
     /**
@@ -70,6 +75,7 @@ public class TestServlet extends HttpServlet {
      */
     @PreDestroy
     public void preDestroy() {
+        this.marker = null;
         this.logger = null;
         this.loggerName = null;
     }
@@ -101,13 +107,13 @@ public class TestServlet extends HttpServlet {
         
         ResourceBundle serverMessages = ResourceBundle.getBundle("messages", Locale.getDefault(), Thread.currentThread().getContextClassLoader());
 
-        this.logger.info("{}", serverMessages.getString("class.testservlet.loaded.server"));
+        this.logger.info(this.marker, "{}", serverMessages.getString("class.testservlet.loaded.server"));
 
         /* Load the resource bundle for user/presentation messages using the locale from the user request */
         
         ResourceBundle userMessages = ResourceBundle.getBundle("messages", request.getLocale(), Thread.currentThread().getContextClassLoader());
 
-        this.logger.info("{}", serverMessages.getString("class.testservlet.loaded.user"));
+        this.logger.info(this.marker, "{}", serverMessages.getString("class.testservlet.loaded.user"));
 
         response.setContentType("text/html;charset=UTF-8");
         response.setStatus(200);

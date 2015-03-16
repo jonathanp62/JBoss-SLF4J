@@ -3,16 +3,16 @@ Manifest-Version: 1.0
 Name: net/jonathan/jboss/slf4j
 Dependencies: org.slf4j, org.slf4j.ext
 Build-By: Jonathan Parker
-Build-Date: 03152015
-Build-Time: 170942
-Build-ID: 0.1.2-01
+Build-Date: 03162015
+Build-Time: 122925
+Build-ID: 0.1.3-03
 Build-JDK: 1.6.0_65
 Created-By: Apache Maven 3.2.3
 Specification-Title: JBoss SLF4J Demonstration
-Specification-Version: 0.1.2
+Specification-Version: 0.1.3
 Specification-Vendor: Jonathan Parker
 Implementation-Title: net.jonathan.jboss.slf4j
-Implementation-Version: 0.1.2
+Implementation-Version: 0.1.3
 Implementation-Vendor: Jonathan Parker
-Implementation-MD5: c4ebcc35064f8ef1a2707f8112a10f61
-Implementation-SHA1: 5abcae27b64c6ca0d03486c9baaf421dd59cd685
+Implementation-MD5: 3835f6be63c30fcb1ddfcbcde5703c76
+Implementation-SHA1: 1f3545e9bff44f606ebdada413e3bc5047653bbf
