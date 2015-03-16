@@ -4,8 +4,8 @@ Name: net/jonathan/jboss/slf4j
 Dependencies: org.slf4j, org.slf4j.ext
 Build-By: Jonathan Parker
 Build-Date: 03162015
-Build-Time: 124648
-Build-ID: 0.1.3-04
+Build-Time: 130503
+Build-ID: 0.1.3-05
 Build-JDK: 1.6.0_65
 Created-By: Apache Maven 3.2.3
 Specification-Title: JBoss SLF4J Demonstration

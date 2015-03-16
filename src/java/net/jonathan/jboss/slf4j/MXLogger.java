@@ -76,10 +76,11 @@ final class MXLogger extends XLogger {
      * @param   marker      org.slf4j.Marker
      * @param   format      java.lang.String
      * @param   argArray    java.lang.Object[]
-     * @todo                Implement the marker
      */
     @Override
     public void debug(final Marker marker, final String format, final Object... argArray) {        
+        argArray[argArray.length - 1] = argArray[argArray.length - 1].toString().concat(" [").concat(marker.getName()).concat("]");
+        
         super.debug(format, argArray);
     }
 
@@ -137,10 +138,11 @@ final class MXLogger extends XLogger {
      * @param   marker      org.slf4j.Marker
      * @param   format      java.lang.String
      * @param   argArray    java.lang.Object[]
-     * @todo                Implement the marker
      */
     @Override
-    public void error(final Marker marker, final String format, final Object... argArray) {        
+    public void error(final Marker marker, final String format, final Object... argArray) {
+        argArray[argArray.length - 1] = argArray[argArray.length - 1].toString().concat(" [").concat(marker.getName()).concat("]");
+
         super.error(format, argArray);
     }
 
@@ -198,10 +200,11 @@ final class MXLogger extends XLogger {
      * @param   marker      org.slf4j.Marker
      * @param   format      java.lang.String
      * @param   argArray    java.lang.Object[]
-     * @todo                Implement the marker
      */
     @Override
-    public void info(final Marker marker, final String format, final Object... argArray) {        
+    public void info(final Marker marker, final String format, final Object... argArray) {
+        argArray[argArray.length - 1] = argArray[argArray.length - 1].toString().concat(" [").concat(marker.getName()).concat("]");
+
         super.info(format, argArray);
     }
 
@@ -259,10 +262,11 @@ final class MXLogger extends XLogger {
      * @param   marker      org.slf4j.Marker
      * @param   format      java.lang.String
      * @param   argArray    java.lang.Object[]
-     * @todo                Implement the marker
      */
     @Override
-    public void trace(final Marker marker, final String format, final Object... argArray) {        
+    public void trace(final Marker marker, final String format, final Object... argArray) {
+        argArray[argArray.length - 1] = argArray[argArray.length - 1].toString().concat(" [").concat(marker.getName()).concat("]");
+
         super.trace(format, argArray);
     }
 
@@ -320,10 +324,11 @@ final class MXLogger extends XLogger {
      * @param   marker      org.slf4j.Marker
      * @param   format      java.lang.String
      * @param   argArray    java.lang.Object[]
-     * @todo                Implement the marker
      */
     @Override
-    public void warn(final Marker marker, final String format, final Object... argArray) {        
+    public void warn(final Marker marker, final String format, final Object... argArray) {
+        argArray[argArray.length - 1] = argArray[argArray.length - 1].toString().concat(" [").concat(marker.getName()).concat("]");
+
         super.warn(format, argArray);
     }
     
