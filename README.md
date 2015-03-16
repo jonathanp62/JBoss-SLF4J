@@ -11,4 +11,4 @@ The format string set up in the JBoss admin console looks like this:
 
 I observed that the log level of the handler needed to be set to TRACE for tracing to work when the log level of the category was set to TRACE. Changing the log level of the category up from TRACE to INFO worked fine.
 
-At this point I have not gotten markers to work.
+Marker support is provided by a custom SLF4J extension logger that simply appends the name of the marker to the message text.
