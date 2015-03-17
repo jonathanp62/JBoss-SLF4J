@@ -23,7 +23,10 @@ import org.slf4j.ext.XLogger;
  * @version     0.1.3
  * @since	0.1.3
  */
-final class MXLogger extends XLogger {    
+final class MXLogger extends XLogger {
+    /** True when caller class and method names are to be included in the message text. */
+    private boolean includeCallerInfo;
+    
     /**
      * A constructor that
      * takes a logger.
@@ -32,8 +35,49 @@ final class MXLogger extends XLogger {
      */
     MXLogger(final Logger logger) {
         super(logger);
+        
+        this.includeCallerInfo = true;
     }
-    
+
+    /**
+     * A constructor that
+     * takes a logger and
+     * the include caller
+     * info status.
+     * 
+     * @param   logger              org.slf4j.Logger
+     * @param   includeCallerInfo   boolean
+     * @since                       0.1.4
+     */
+    MXLogger(final Logger logger, final boolean includeCallerInfo) {
+        super(logger);
+        
+        this.includeCallerInfo = includeCallerInfo;
+    }
+
+    /**
+     * Method to return true when
+     * the caller info is to be
+     * included in message texts.
+     * 
+     * @return  boolean
+     * @since   0.1.4
+     */
+    boolean isIncludeCallerInfo() {
+        return this.includeCallerInfo;
+    }
+
+    /**
+     * Method to set the include
+     * caller info status.
+     * 
+     * @param   includeCallerInfo   boolean
+     * @since                       0.1.4
+     */
+    void setIncludeCallerInfo(final boolean includeCallerInfo) {
+        this.includeCallerInfo = includeCallerInfo;
+    }
+
     /**
      * Write a debug message.
      * 
@@ -42,7 +86,11 @@ final class MXLogger extends XLogger {
      */
     @Override
     public void debug(final Marker marker, final String message) {
-        super.debug(message.concat(" [").concat(marker.getName()).concat("]"));
+        String callerInfo = getCallerInfo();
+
+        super.debug(message.concat(callerInfo).concat(" [").concat(marker.getName()).concat("]"));
+        
+        callerInfo = null;
     }
 
     /**
@@ -53,8 +101,12 @@ final class MXLogger extends XLogger {
      * @param   arg     java.lang.Object
      */
     @Override
-    public void debug(final Marker marker, final String format, final Object arg) {        
-        super.debug(format, arg.toString().concat(" [").concat(marker.getName()).concat("]"));
+    public void debug(final Marker marker, final String format, final Object arg) {
+        String callerInfo = getCallerInfo();
+
+        super.debug(format, arg.toString().concat(callerInfo).concat(" [").concat(marker.getName()).concat("]"));
+        
+        callerInfo = null;
     }
 
     /**
@@ -66,8 +118,12 @@ final class MXLogger extends XLogger {
      * @param   arg2    java.lang.Object
      */
     @Override
-    public void debug(final Marker marker, final String format, final Object arg1, final Object arg2) {        
-        super.debug(format, arg1, arg2.toString().concat(" [").concat(marker.getName()).concat("]"));
+    public void debug(final Marker marker, final String format, final Object arg1, final Object arg2) {
+        String callerInfo = getCallerInfo();
+
+        super.debug(format, arg1, arg2.toString().concat(callerInfo).concat(" [").concat(marker.getName()).concat("]"));
+        
+        callerInfo = null;
     }
 
     /**
@@ -78,10 +134,14 @@ final class MXLogger extends XLogger {
      * @param   argArray    java.lang.Object[]
      */
     @Override
-    public void debug(final Marker marker, final String format, final Object... argArray) {        
-        argArray[argArray.length - 1] = argArray[argArray.length - 1].toString().concat(" [").concat(marker.getName()).concat("]");
+    public void debug(final Marker marker, final String format, final Object... argArray) {
+        String callerInfo = getCallerInfo();
+
+        argArray[argArray.length - 1] = argArray[argArray.length - 1].toString().concat(callerInfo).concat(" [").concat(marker.getName()).concat("]");
         
         super.debug(format, argArray);
+        
+        callerInfo = null;
     }
 
     /**
@@ -93,7 +153,11 @@ final class MXLogger extends XLogger {
      */
     @Override
     public void debug(final Marker marker, final String message, final Throwable t) {
-        super.debug(message.concat(" [").concat(marker.getName()).concat("]"), t);
+        String callerInfo = getCallerInfo();
+
+        super.debug(message.concat(callerInfo).concat(" [").concat(marker.getName()).concat("]"), t);
+      
+        callerInfo = null;
     }
 
     /**
@@ -104,7 +168,11 @@ final class MXLogger extends XLogger {
      */
     @Override
     public void error(final Marker marker, final String message) {
-        super.error(message.concat(" [").concat(marker.getName()).concat("]"));
+        String callerInfo = getCallerInfo();
+
+        super.error(message.concat(callerInfo).concat(" [").concat(marker.getName()).concat("]"));
+    
+        callerInfo = null;
     }
 
     /**
@@ -115,8 +183,12 @@ final class MXLogger extends XLogger {
      * @param   arg     java.lang.Object
      */
     @Override
-    public void error(final Marker marker, final String format, final Object arg) {        
-        super.error(format, arg.toString().concat(" [").concat(marker.getName()).concat("]"));
+    public void error(final Marker marker, final String format, final Object arg) {
+        String callerInfo = getCallerInfo();
+
+        super.error(format, arg.toString().concat(callerInfo).concat(" [").concat(marker.getName()).concat("]"));
+        
+        callerInfo = null;
     }
 
     /**
@@ -128,8 +200,12 @@ final class MXLogger extends XLogger {
      * @param   arg2    java.lang.Object
      */
     @Override
-    public void error(final Marker marker, final String format, final Object arg1, final Object arg2) {        
-        super.error(format, arg1, arg2.toString().concat(" [").concat(marker.getName()).concat("]"));
+    public void error(final Marker marker, final String format, final Object arg1, final Object arg2) {
+        String callerInfo = getCallerInfo();
+
+        super.error(format, arg1, arg2.toString().concat(callerInfo).concat(" [").concat(marker.getName()).concat("]"));
+        
+        callerInfo = null;
     }
 
     /**
@@ -141,9 +217,13 @@ final class MXLogger extends XLogger {
      */
     @Override
     public void error(final Marker marker, final String format, final Object... argArray) {
-        argArray[argArray.length - 1] = argArray[argArray.length - 1].toString().concat(" [").concat(marker.getName()).concat("]");
+        String callerInfo = getCallerInfo();
+
+        argArray[argArray.length - 1] = argArray[argArray.length - 1].toString().concat(callerInfo).concat(" [").concat(marker.getName()).concat("]");
 
         super.error(format, argArray);
+        
+        callerInfo = null;
     }
 
     /**
@@ -155,7 +235,11 @@ final class MXLogger extends XLogger {
      */
     @Override
     public void error(final Marker marker, final String message, final Throwable t) {
-        super.error(message.concat(" [").concat(marker.getName()).concat("]"), t);
+        String callerInfo = getCallerInfo();
+
+        super.error(message.concat(callerInfo).concat(" [").concat(marker.getName()).concat("]"), t);
+        
+        callerInfo = null;
     }
 
     /**
@@ -166,7 +250,11 @@ final class MXLogger extends XLogger {
      */
     @Override
     public void info(final Marker marker, final String message) {
-        super.info(message.concat(" [").concat(marker.getName()).concat("]"));
+        String callerInfo = getCallerInfo();
+        
+        super.info(message.concat(callerInfo).concat(" [").concat(marker.getName()).concat("]"));
+        
+        callerInfo = null;
     }
 
     /**
@@ -177,8 +265,12 @@ final class MXLogger extends XLogger {
      * @param   arg     java.lang.Object
      */
     @Override
-    public void info(final Marker marker, final String format, final Object arg) {        
-        super.info(format, arg.toString().concat(" [").concat(marker.getName()).concat("]"));
+    public void info(final Marker marker, final String format, final Object arg) {
+        String callerInfo = getCallerInfo();
+        
+        super.info(format, arg.toString().concat(callerInfo).concat(" [").concat(marker.getName()).concat("]"));
+        
+        callerInfo = null;
     }
 
     /**
@@ -190,8 +282,12 @@ final class MXLogger extends XLogger {
      * @param   arg2    java.lang.Object
      */
     @Override
-    public void info(final Marker marker, final String format, final Object arg1, final Object arg2) {        
-        super.info(format, arg1, arg2.toString().concat(" [").concat(marker.getName()).concat("]"));
+    public void info(final Marker marker, final String format, final Object arg1, final Object arg2) {
+        String callerInfo = getCallerInfo();
+        
+        super.info(format, arg1, arg2.toString().concat(callerInfo).concat(" [").concat(marker.getName()).concat("]"));
+        
+        callerInfo = null;
     }
 
     /**
@@ -203,9 +299,13 @@ final class MXLogger extends XLogger {
      */
     @Override
     public void info(final Marker marker, final String format, final Object... argArray) {
-        argArray[argArray.length - 1] = argArray[argArray.length - 1].toString().concat(" [").concat(marker.getName()).concat("]");
+        String callerInfo = getCallerInfo();
+
+        argArray[argArray.length - 1] = argArray[argArray.length - 1].toString().concat(callerInfo).concat(" [").concat(marker.getName()).concat("]");
 
         super.info(format, argArray);
+        
+        callerInfo = null;
     }
 
     /**
@@ -217,7 +317,11 @@ final class MXLogger extends XLogger {
      */
     @Override
     public void info(final Marker marker, final String message, final Throwable t) {
-        super.info(message.concat(" [").concat(marker.getName()).concat("]"), t);
+        String callerInfo = getCallerInfo();
+        
+        super.info(message.concat(callerInfo).concat(" [").concat(marker.getName()).concat("]"), t);
+        
+        callerInfo = null;
     }
 
     /**
@@ -228,7 +332,11 @@ final class MXLogger extends XLogger {
      */
     @Override
     public void trace(final Marker marker, final String message) {
-        super.trace(message.concat(" [").concat(marker.getName()).concat("]"));
+        String callerInfo = getCallerInfo();
+
+        super.trace(message.concat(callerInfo).concat(" [").concat(marker.getName()).concat("]"));
+        
+        callerInfo = null;
     }
 
     /**
@@ -239,8 +347,12 @@ final class MXLogger extends XLogger {
      * @param   arg     java.lang.Object
      */
     @Override
-    public void trace(final Marker marker, final String format, final Object arg) {        
-        super.trace(format, arg.toString().concat(" [").concat(marker.getName()).concat("]"));
+    public void trace(final Marker marker, final String format, final Object arg) {
+        String callerInfo = getCallerInfo();
+
+        super.trace(format, arg.toString().concat(callerInfo).concat(" [").concat(marker.getName()).concat("]"));
+        
+        callerInfo = null;
     }
 
     /**
@@ -252,8 +364,12 @@ final class MXLogger extends XLogger {
      * @param   arg2    java.lang.Object
      */
     @Override
-    public void trace(final Marker marker, final String format, final Object arg1, final Object arg2) {        
-        super.trace(format, arg1, arg2.toString().concat(" [").concat(marker.getName()).concat("]"));
+    public void trace(final Marker marker, final String format, final Object arg1, final Object arg2) {
+        String callerInfo = getCallerInfo();
+
+        super.trace(format, arg1, arg2.toString().concat(callerInfo).concat(" [").concat(marker.getName()).concat("]"));
+        
+        callerInfo = null;
     }
 
     /**
@@ -265,9 +381,13 @@ final class MXLogger extends XLogger {
      */
     @Override
     public void trace(final Marker marker, final String format, final Object... argArray) {
-        argArray[argArray.length - 1] = argArray[argArray.length - 1].toString().concat(" [").concat(marker.getName()).concat("]");
+        String callerInfo = getCallerInfo();
+
+        argArray[argArray.length - 1] = argArray[argArray.length - 1].toString().concat(callerInfo).concat(" [").concat(marker.getName()).concat("]");
 
         super.trace(format, argArray);
+        
+        callerInfo = null;
     }
 
     /**
@@ -279,7 +399,11 @@ final class MXLogger extends XLogger {
      */
     @Override
     public void trace(final Marker marker, final String message, final Throwable t) {
-        super.trace(message.concat(" [").concat(marker.getName()).concat("]"), t);
+        String callerInfo = getCallerInfo();
+
+        super.trace(message.concat(callerInfo).concat(" [").concat(marker.getName()).concat("]"), t);
+        
+        callerInfo = null;
     }
 
     /**
@@ -290,7 +414,11 @@ final class MXLogger extends XLogger {
      */
     @Override
     public void warn(final Marker marker, final String message) {
-        super.warn(message.concat(" [").concat(marker.getName()).concat("]"));
+        String callerInfo = getCallerInfo();
+
+        super.warn(message.concat(callerInfo).concat(" [").concat(marker.getName()).concat("]"));
+        
+        callerInfo = null;
     }
     
     /**
@@ -301,8 +429,12 @@ final class MXLogger extends XLogger {
      * @param   arg     java.lang.Object
      */
     @Override
-    public void warn(final Marker marker, final String format, final Object arg) {        
-        super.warn(format, arg.toString().concat(" [").concat(marker.getName()).concat("]"));
+    public void warn(final Marker marker, final String format, final Object arg) {
+        String callerInfo = getCallerInfo();
+
+        super.warn(format, arg.toString().concat(callerInfo).concat(" [").concat(marker.getName()).concat("]"));
+        
+        callerInfo = null;
     }
 
     /**
@@ -314,8 +446,12 @@ final class MXLogger extends XLogger {
      * @param   arg2    java.lang.Object
      */
     @Override
-    public void warn(final Marker marker, final String format, final Object arg1, final Object arg2) {        
-        super.warn(format, arg1, arg2.toString().concat(" [").concat(marker.getName()).concat("]"));
+    public void warn(final Marker marker, final String format, final Object arg1, final Object arg2) {
+        String callerInfo = getCallerInfo();
+
+        super.warn(format, arg1, arg2.toString().concat(callerInfo).concat(" [").concat(marker.getName()).concat("]"));
+        
+        callerInfo = null;
     }
 
     /**
@@ -327,9 +463,13 @@ final class MXLogger extends XLogger {
      */
     @Override
     public void warn(final Marker marker, final String format, final Object... argArray) {
-        argArray[argArray.length - 1] = argArray[argArray.length - 1].toString().concat(" [").concat(marker.getName()).concat("]");
+        String callerInfo = getCallerInfo();
+
+        argArray[argArray.length - 1] = argArray[argArray.length - 1].toString().concat(callerInfo).concat(" [").concat(marker.getName()).concat("]");
 
         super.warn(format, argArray);
+        
+        callerInfo = null;
     }
     
     /**
@@ -341,6 +481,35 @@ final class MXLogger extends XLogger {
      */
     @Override
     public void warn(final Marker marker, final String message, final Throwable t) {
-        super.warn(message.concat(" [").concat(marker.getName()).concat("]"), t);
+        String callerInfo = getCallerInfo();
+
+        super.warn(message.concat(callerInfo).concat(" [").concat(marker.getName()).concat("]"), t);
+        
+        callerInfo = null;
+    }
+    
+    /**
+     * Method to return a string representing
+     * the class and method names of the caller in
+     * the form [class::method].
+     * 
+     * @return  java.lang.String
+     * @since   0.1.4
+     */
+    private String getCallerInfo() {
+        if (!this.includeCallerInfo)
+            return "";
+        
+        StackTraceElement[] elements = Thread.currentThread().getStackTrace();
+        String longClassName = elements[3].getClassName();
+        String methodName = elements[3].getMethodName();
+        
+        elements = null;
+        
+        String shortClassName = longClassName.substring(longClassName.lastIndexOf(".") + 1);
+        
+        longClassName = null;
+        
+        return " [".concat(shortClassName).concat("::").concat(methodName).concat("]");
     }
 }
