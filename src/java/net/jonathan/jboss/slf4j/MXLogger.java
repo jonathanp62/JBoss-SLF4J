@@ -1,6 +1,7 @@
 package net.jonathan.jboss.slf4j;
 
 /*
+ * @(#)MXLogger.java    0.1.4   03/17/2015
  * @(#)MXLogger.java    0.1.3   03/16/2015
  */
 
@@ -20,11 +21,15 @@ import org.slf4j.ext.XLogger;
  * Creation date: 3/16/15 11:03 AM
  *
  * @author	Jonathan Parker
- * @version     0.1.3
+ * @version     0.1.4
  * @since	0.1.3
  */
 final class MXLogger extends XLogger {
-    /** True when caller class and method names are to be included in the message text. */
+    /** 
+     * True when caller class and method names are to be included in the message text.
+     * 
+     * @since   0.1.4
+     */
     private boolean includeCallerInfo;
     
     /**
@@ -491,7 +496,9 @@ final class MXLogger extends XLogger {
     /**
      * Method to return a string representing
      * the class and method names of the caller in
-     * the form [class::method].
+     * the form [class::method]. The empty string
+     * is return when the include caller info
+     * status is false.
      * 
      * @return  java.lang.String
      * @since   0.1.4
