@@ -27,9 +27,24 @@
     <developer>
       <name>Jonathan Parker</name>
       <email>jonathanp62@gmail.com</email>
+      <properties>
+        <active>true></active>
+      </properties>
     </developer>
   </developers>
   <url>http://maven.apache.org</url>
+  <distributionManagement>
+    <repository>
+      <id>nexusReleases</id>
+      <name>Releases</name>
+      <url>http://macbookpro:8081/nexus/content/repositories/releases</url>
+    </repository>
+    <snapshotRepository>
+      <id>nexusSnapshots</id>
+      <name>Snapshots</name>
+      <url>http://macbookpro:8081/nexus/content/repositories/snapshots</url>
+    </snapshotRepository>
+  </distributionManagement>
   <build>
     <finalName>JBoss-SLF4J</finalName>
     <plugins>
